@@ -62,7 +62,13 @@ FROM base
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libsqlite3-0 libvips libpq5 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    
+# Create tmp directories and set permissions
+RUN mkdir -p /rails/tmp/pids /rails/tmp/sockets /rails/log && \
+    chown -R 1000:1000 /rails/tmp /rails/log
+
 USER 1000:1000
+
 
 # Copy built artifacts: gems, application
 COPY --chown=rails:rails --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
@@ -74,3 +80,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["sh", "-c", "bundle exec rails server -b 0.0.0.0 -p $PORT"]
+
