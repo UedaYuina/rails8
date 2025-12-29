@@ -29,17 +29,4 @@ production:
   pool: 5
   sslmode: require
 
-  cache:
-    adapter: postgresql
-    url: <%= ENV['DATABASE_URL'] %>
-    database: myapp_cache_production
-
-  queue:
-    adapter: postgresql
-    url: <%= ENV['DATABASE_URL'] %>
-    database: myapp_queue_production
-
-  cable:
-    adapter: postgresql
-    url: <%= ENV['DATABASE_URL'] %>
-    database: myapp_cable_production
+  
