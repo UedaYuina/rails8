@@ -28,15 +28,18 @@ production:
   url: <%= ENV['DATABASE_URL'] %>
   pool: 5
   sslmode: require
+
   cache:
-    <<: *default
-    database: storage/production_cache.sqlite3
-    migrations_paths: db/cache_migrate
+    adapter: postgresql
+    url: <%= ENV['DATABASE_URL'] %>
+    database: myapp_cache_production
+
   queue:
-    <<: *default
-    database: storage/production_queue.sqlite3
-    migrations_paths: db/queue_migrate
+    adapter: postgresql
+    url: <%= ENV['DATABASE_URL'] %>
+    database: myapp_queue_production
+
   cable:
-    <<: *default
-    database: storage/production_cable.sqlite3
-    migrations_paths: db/cable_migrate
+    adapter: postgresql
+    url: <%= ENV['DATABASE_URL'] %>
+    database: myapp_cable_production
